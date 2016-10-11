@@ -14,6 +14,7 @@ c.  If M = 1, what is the running time of your program? How is the actual speed 
 */
 
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -24,13 +25,8 @@ class Person {
 public:
   unsigned getPos(void);
 
-  /*Person(int pos){
-    position = pos;
-    //
-  }*/
-  
 private:
-  Person(int pos, Person *nextPerson = 0, Person *prevPerson = 0){
+  Person(int pos, Person *nextPerson = 0){
     position = pos;
   }
 
@@ -38,8 +34,9 @@ private:
   
   unsigned position;
   Person *next;
-  Person *previous;
 };
+
+//  Person *previous; , Person *prevPerson = 0
 
 unsigned Person::getPos(void){
   return position;
@@ -91,6 +88,9 @@ public:
 	}
 	
 	void remove(void);
+	void insert(int pos);
+	void display(void);
+	void remove(int pos);
 		
 	private:
 		iterator itr;
@@ -100,6 +100,20 @@ public:
 private:
 	
 };
+
+void Josephus::insert(int pos){
+	Person *pt = new Person(pos, people);
+	
+	assert(pt != 0);
+	
+	if(people == 0){
+		people = pt;
+	} else {
+		atEndItem->next = pt;
+	}
+	
+	atEndItem = pt;
+}
 
 void Josephus::remove(void){
 	Person *pt = people;
@@ -112,6 +126,47 @@ void Josephus::remove(void){
 	
 	people = atEndItem = 0;
 }
+
+void Josephus::display(void){
+	cout << "( ";
+	
+	for(Person *pt = people; pt; pt = pt->next){
+		cout << pt->position << " ";
+	}
+	
+	cout << ")" << endl;
+}
+
+void Josephus::remove(int pos){
+	Person *pt = people;
+	
+	while(pt && pt->position == pos){
+			Person *temp = pt-> next;
+			delete pt;
+			pt = temp;
+	}
+	
+	if ((people = pt) == 0){
+		atEndItem = 0;
+	} else {
+		Person *previous = pt;
+		pt = pt->next;
+		
+		while(pt){
+			if(pt->position == pos){
+				previous->next = pt->next;
+				if(atEndItem == pt) {
+					atEndItem = previous;
+				}
+				delete pt;
+				pt = previous->next;
+			} else {
+				previous = pt;
+				pt = pt->next;
+			}
+		}
+	}
+}
 /*====================END Josephus====================*/
 
 
@@ -121,6 +176,15 @@ int main(void){
   Josephus testGame;
   Josephus::iterator itr;
   
+  testGame.insert(0);
+
+  testGame.insert(2);
+
+  testGame.insert(3);
+  
+  testGame.remove(2);
+  
+  testGame.display();
   //cout << testPerson->getPos() << endl;
 
   return 0;
