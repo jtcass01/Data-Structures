@@ -177,19 +177,37 @@ void Josephus::remove(int pos){
 
 void Josephus::findWinner(void){
 	int i = 0;
+	int Nhold = n;
 	Person *pt = people;
 	
-	while(n>1){
-		if(i > this->getM()){
-			i = 0;
-		}
+	while(Nhold>1){
 		pt = people;
-		while(pt && i<=-this->getM()){
-			pt = pt->next;
+		while(pt){
 			i++;
+			
+//			cout << "position:" << pt->position << endl;
+//			cout << "n :" << Nhold << endl;
+//			cout << "m :" << this->getM() << endl;
+//			cout << "i :" << i << endl;
+
+			if(i>this->getM() && Nhold>1){
+//				cout << "hi" << endl;
+				i=0;
+				this->remove(pt->position);
+				Nhold--;
+			}
+			pt = pt->next;
+//			this->display();
 		}
+	}
+	cout << endl;
+	cout << "With a M value of " << this->getM() << " and an N value of " << this->getN() << " has a winning value of ";
+	this->display();
+	cout << endl;
+}
+
 		
-		
+/*		
 		for(int i=0; i<=this->getM();i++){
 			if(pt->next == atEndItem){
 				pt = people;
@@ -199,12 +217,7 @@ void Josephus::findWinner(void){
 		cout << pt->position << endl;
 		this->remove(pt->position);
 		n--;
-	}
-	cout << endl;
-	cout << "With a M value of " << this->getM() << " and an N value of " << this->getN() << " has a winning value of ";
-	this->display();
-	cout << endl;
-}
+*/
 /*====================END Josephus====================*/
 
 
