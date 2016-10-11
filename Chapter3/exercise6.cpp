@@ -7,8 +7,7 @@
 /* Problem Statement
 The Josephus problem is the following game:
 N people, numbered 1 to N, are sitting in a circle. Starting at person 1, a hot potato is passed. After M passes, the person holding the hot potato is eliminate, the circle closes ranks, and the game continues with the person who was sitting after the eliminated person picking up the hot potato. The last remaining person wins. Thus, if M = 0 and N = 5, players are eliminated in order, and player 5 wins. If M = 1 and N = 5, the order of elimination is 2, 4, 1, 5.
-a.  Write a program to solve the Josephus problem for general values of M and N. Try to make your program as efficient as possible.
-Make sure you dispose of cells.
+a.  Write a program to solve the Josephus problem for general values of M and N. Try to make your program as efficient as possible. Make sure you dispose of cells.
 b.  What is the running time of your program?
 c.  If M = 1, what is the running time of your program? How is the actual speed affected by the delete routine for large values of N ( N > 100,000)?
 */
@@ -79,8 +78,14 @@ public:
 		iterator(Person *p) : current(p){}
 	};
 	
-	Josephus() {
+	Josephus(int m, int n) {
 		people = 0;
+		this->m = m;
+		this->n = n;
+		
+		for(unsigned i = 1; i<(n+1); i++){
+			insert(i);
+		}
 	}
 	
 	~Josephus() {
@@ -91,14 +96,16 @@ public:
 	void insert(int pos);
 	void display(void);
 	void remove(int pos);
-		
-	private:
-		iterator itr;
-		Person *people;
-		Person *atEndItem;
+	int getM(void) { return m ;}
+	int getN(void) { return n ;}
+	void findWinner(void);
 		
 private:
-	
+	iterator itr;
+	Person *people;
+	Person *atEndItem;
+	int m;
+	int n;
 };
 
 void Josephus::insert(int pos){
@@ -167,24 +174,23 @@ void Josephus::remove(int pos){
 		}
 	}
 }
+
+void Josephus::findWinner(void){
+	
+}
 /*====================END Josephus====================*/
 
 
 
 
 int main(void){
-  Josephus testGame;
+  Josephus testGame(0,5);
+  cout << testGame.getN() << endl;
+  cout << testGame.getM() << endl;
+  
   Josephus::iterator itr;
   
-  testGame.insert(0);
-
-  testGame.insert(2);
-
-  testGame.insert(3);
-  
-  testGame.remove(2);
-  
-  testGame.display();
+    testGame.display();
   //cout << testPerson->getPos() << endl;
 
   return 0;
