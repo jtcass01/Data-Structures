@@ -21,66 +21,68 @@ int charToInt(char input){
   return output;
 }
 
-string postfixToInfix(string input){
-  string output = "";
+void displayStack(stack<int> stk){
+	cout << "stack = ";
+	for(unsigned i = 0; i<=stk.size(); i++){
+		cout << stk.top() << " ";
+		stk.pop();
+	}
+	cout << endl;
+}
+
+
+int evaluatePostfix(string input){
+  int output = 0;
   string testString = "";
-  /*for(unsigned i=0; i<input.length(); i++){
-    output += " ";
-  }
-*/
+  int num1=0,num2=0;
+
   stack<int> stk;
   int total = 0;
 
   for(unsigned i = 0; i < input.length(); i++){
-    if(input[i] == '*' || input[i] == '+' || input[i] == '/' || input[i] == '-'){
-      if(input[i] == '*'){
-      }
-      if(input[i] == '+'){
-      }
-      if(input[i] == '-'){
-      }
-      if(input[i] == '/'){
-      }
-    } else {
-      stk.push(input[i]);
-      
-    }
-    
-    
-    cout << input[i] << endl;
-    if(input[i] == '*' || input[i] == '+' || input[i] == '/' || input[i] == '-'){
-      cout << "operator found" << endl;
-      if(stk.size() == 1){
-          output += input[i];
-          output += stk.top();
-          stk.pop();
-      } else {
-        for(unsigned j = 0; j<2; j++){
-          if(j==1){
-            output += input[i];
-          }
-          output += stk.top();
-          stk.pop();
-          cout << output << endl;
-        }
-      }
-    } else {
-      stk.push(input[i]);
-      cout << stk.size() << endl;
-    }
+  	if(input[i] == '*' || input[i] == '+' || input[i] == '/' || input[i] == '-'){
+	  	cout << input[i] << endl;
+  		displayStack(stk);
+  		num1 = stk.top();
+    	stk.pop();
+    	num2 = stk.top();
+    	stk.pop();
+    	
+    	cout << "num1: " << num1 << endl;
+    	cout << "num2: " << num2 << endl;
+    	
+	    if(input[i] == '*'){
+	    	total = num1 * num2;
+	    }
+	    if(input[i] == '+'){
+	    	total = num1 + num2;
+	    }
+	    if(input[i] == '-'){
+	    	total = num2 - num1;
+	    }
+	    if(input[i] == '/'){
+	    	total = num2 / num1;
+	    }
+	    stk.push(total);
+		cout << "total: " << total << endl;
+    } else if (input[i] == ' '){
+  	} else {
+      	cout << input[i] << endl;
+		stk.push(charToInt(input[i]));
+	}
   }
-
-  return output;
-
+  return total;
 }
 
-int main(void){
-  string testString = "abc*+de*f+g*+";
 
-  cout << testString << endl;
+int main (void) {
+	string testString = "5 6 7 * + 3 - 4 * 3 + 4 * ";
+	int testint = 0;
+	
+	testint = evaluatePostfix(testString);
+	cout << testint << endl;
 
-  testString = postfixToInfix(testString);
-
-  cout << testString << endl;
-  return 0;
+	cout << testint << endl;
+	
+	return 0;
 }
