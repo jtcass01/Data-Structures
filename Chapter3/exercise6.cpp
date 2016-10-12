@@ -14,13 +14,14 @@ c.  If M = 1, what is the running time of your program? How is the actual speed 
 
 #include <iostream>
 #include <assert.h>
+#include <ctime>
 
 using namespace std;
 
 /*====================BEGIN PERSON====================*/
 class Person {
 	friend class Josephus;
-	
+
 public:
   unsigned getPos(void);
 
@@ -29,13 +30,9 @@ private:
     position = pos;
   }
 
-
-  
   unsigned position;
   Person *next;
 };
-
-//  Person *previous; , Person *prevPerson = 0
 
 unsigned Person::getPos(void){
   return position;
@@ -47,51 +44,51 @@ class Josephus {
 public:
 	class iterator {
 		friend class Josephus;
-	
+
 	public:
 		Person *current;
-		
+
 		iterator() : current(NULL){}
-		
+
 		const Person & operator*() const {
 			return *this->current;
 		}
-		
+
 		iterator operator++() {
 			iterator old = *this;
 			++(*this);
 			return old;
 		}
-		
+
 		bool operator==(const iterator & rhs) const {
 			return current == rhs.current;
 		}
-		
+
 		bool operator!=(const iterator & rhs) {
 			return !(*this == rhs);
 		}
-		
+
 		Person retrieve() const {
 			return current->position;
 		}
-		
+
 		iterator(Person *p) : current(p){}
 	};
-	
+
 	Josephus(int m, int n) {
 		people = 0;
 		this->m = m;
 		this->n = n;
-		
+
 		for(unsigned i = 1; i<(n+1); i++){
 			insert(i);
 		}
 	}
-	
+
 	~Josephus() {
 		remove();
 	}
-	
+
 	void remove(void);
 	void insert(int pos);
 	void display(void);
@@ -99,7 +96,7 @@ public:
 	int getM(void) { return m ;}
 	int getN(void) { return n ;}
 	void findWinner(void);
-		
+
 private:
 	iterator itr;
 	Person *people;
@@ -110,55 +107,55 @@ private:
 
 void Josephus::insert(int pos){
 	Person *pt = new Person(pos, people);
-	
+
 	assert(pt != 0);
-	
+
 	if(people == 0){
 		people = pt;
 	} else {
 		atEndItem->next = pt;
 	}
-	
+
 	atEndItem = pt;
 }
 
 void Josephus::remove(void){
 	Person *pt = people;
-	
+
 	while(pt) {
 		Person *temp = pt;
 		pt = pt->next;
 		delete temp;
 	}
-	
+
 	people = atEndItem = 0;
 }
 
 void Josephus::display(void){
 	cout << "( ";
-	
+
 	for(Person *pt = people; pt; pt = pt->next){
 		cout << pt->position << " ";
 	}
-	
+
 	cout << ")" << endl;
 }
 
 void Josephus::remove(int pos){
 	Person *pt = people;
-	
+
 	while(pt && pt->position == pos){
 			Person *temp = pt-> next;
 			delete pt;
 			pt = temp;
 	}
-	
+
 	if ((people = pt) == 0){
 		atEndItem = 0;
 	} else {
 		Person *previous = pt;
 		pt = pt->next;
-		
+
 		while(pt){
 			if(pt->position == pos){
 				previous->next = pt->next;
@@ -179,25 +176,17 @@ void Josephus::findWinner(void){
 	int i = 0;
 	int Nhold = n;
 	Person *pt = people;
-	
+
 	while(Nhold>1){
 		pt = people;
 		while(pt){
 			i++;
-			
-//			cout << "position:" << pt->position << endl;
-//			cout << "n :" << Nhold << endl;
-//			cout << "m :" << this->getM() << endl;
-//			cout << "i :" << i << endl;
-
 			if(i>this->getM() && Nhold>1){
-//				cout << "hi" << endl;
 				i=0;
 				this->remove(pt->position);
 				Nhold--;
 			}
 			pt = pt->next;
-//			this->display();
 		}
 	}
 	cout << endl;
@@ -205,37 +194,20 @@ void Josephus::findWinner(void){
 	this->display();
 	cout << endl;
 }
-
-		
-/*		
-		for(int i=0; i<=this->getM();i++){
-			if(pt->next == atEndItem){
-				pt = people;
-			} else {
-			}
-		}
-		cout << pt->position << endl;
-		this->remove(pt->position);
-		n--;
-*/
 /*====================END Josephus====================*/
 
 
 
 
 int main(void){
-  Josephus testGame(0,5);
-  Josephus testGame2(1,5);
-//  cout << testGame.getN() << endl;
-//  cout << testGame.getM() << endl;
-  
-  Josephus::iterator itr;
-  
-//  testGame.display();
-  
-  testGame.findWinner();
-  testGame2.findWinner();
-  //cout << testPerson->getPos() << endl;
+  clock_t t;
 
+  t=clock();
+  Josephus testGame(1,100000);
+
+  testGame.findWinner();
+  t = clock() - t;
+
+  cout << "It took me " << ((float)t) << " clicks (" << ((float)t)/CLOCKS_PER_SEC << " seconds)" << endl;
   return 0;
 }
