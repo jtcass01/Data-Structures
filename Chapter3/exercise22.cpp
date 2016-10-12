@@ -15,6 +15,12 @@ Write a program to evaluate a postfix expression
 
 using namespace std;
 
+int charToInt(char input){
+  int output;
+  output = input - '0';
+  return output;
+}
+
 string postfixToInfix(string input){
   string output = "";
   string testString = "";
@@ -23,8 +29,24 @@ string postfixToInfix(string input){
   }
 */
   stack<int> stk;
+  int total = 0;
 
   for(unsigned i = 0; i < input.length(); i++){
+    if(input[i] == '*' || input[i] == '+' || input[i] == '/' || input[i] == '-'){
+      if(input[i] == '*'){
+      }
+      if(input[i] == '+'){
+      }
+      if(input[i] == '-'){
+      }
+      if(input[i] == '/'){
+      }
+    } else {
+      stk.push(input[i]);
+      
+    }
+    
+    
     cout << input[i] << endl;
     if(input[i] == '*' || input[i] == '+' || input[i] == '/' || input[i] == '-'){
       cout << "operator found" << endl;
