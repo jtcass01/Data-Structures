@@ -1,7 +1,7 @@
 /*
 //  Created by: Jacob Cassady
 //  Date Created: 10/8/2016
-//  Last Updated: 10/9/2016
+//  Last Updated: 10/12/2016
 */
 
 /* Problem Statement
@@ -18,6 +18,7 @@ posted on Blackboard.
 #include <assert.h>
 #include <iostream>
 #include <iterator>
+#include <ctime>
 
 using namespace std;
 
@@ -373,7 +374,7 @@ void SLList::swapRight(Iterator itr){
 	afterCurrent = current;
 }
 
-void SLList::push_back(someItem val){
+void SLList::push_back(Type val){
 	this->append(val);
 }
 
@@ -383,31 +384,52 @@ void SLList::push_back(someItem val){
 
 int main()
 {
+	clock_t t;
+
 	SLList testSingleList;
 	SLList::Iterator testSIterator;
 	
 	int n = 1000;
 
+	t=clock();
 	//Display use of append
 	for(unsigned i=0; i<(n/2); i++){
 		testSingleList.append(i);
 	}
+	t = clock() - t;
+	cout << "It took append " << ((float)t) << " clicks (" << ((float)t)/CLOCKS_PER_SEC << " seconds)" << endl;
 	
+	t=clock();
 	//Display use of push_back
 	for(unsigned i=(n/2); i <= n; i++){
 		testSingleList.push_back(i);
 	}
+	t = clock() - t;
+	cout << "It took push_back " << ((float)t) << " clicks (" << ((float)t)/CLOCKS_PER_SEC << " seconds)" << endl;
 
-	testSingleList.display();
-
-	for(testSIterator = testSingleList.head(); testSIterator != testSingleList.tail(); testSIterator++){
-		if(testSIterator.current->getVal() == 5){
-			cout << "swapRight() is being applied to: " << testSIterator.current->getVal() << endl;
-			testSingleList.swapRight(testSIterator);
+	//Display use of swapRight, head, tail
+	if(testSingleList.isPresent(5)){
+		cout << "5 is present, okay to run swapRight" << endl;
+		for(testSIterator = testSingleList.head(); testSIterator != testSingleList.tail(); testSIterator++){
+			if(testSIterator.current->getVal() == 5){
+				cout << "swapRight() is being applied to: " << testSIterator.current->getVal() << endl;
+				testSingleList.swapRight(testSIterator);
+			}
 		}
 	}
 
+	//Display use of display
 	testSingleList.display();
 
+	//Display use of remove
+	cout << "removing 0 and 1" << endl;
+	testSingleList.remove(0);
+	testSingleList.remove(1);
+	testSingleList.display();
+	cout << "removing all" << endl;
+	testSingleList.remove();
+	if(testSingleList.isEmpty()){
+		cout << "Hi, I'm empty now" << endl;
+	}
 	return 0;
 }
