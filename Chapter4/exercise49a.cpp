@@ -1,6 +1,12 @@
 /*
+//  Created by: Jacob Cassady
+//  Date Created: 10/27/2016
+//  Last Updated: 10/27/2016
 */
 
+/* Problem Statement:
+a. Show the result of inserting 3,1,4,6,9,2,5,7 into an initially empty binary search tree.
+*/
 
 
 #include <iostream>
