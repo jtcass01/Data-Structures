@@ -262,10 +262,8 @@ int main()
 	for(list<int>::iterator it = insertList.begin(); it != insertList.end(); it++){
 		myTree.insert(*it);
 		cout << "Inserted " << *it << endl;
-
 	}
-	
-	myTree.printTree(cout);
+	myTree.printTree(cout);	
 	cout << "Ending!" << endl;
 	
 	return 0;
