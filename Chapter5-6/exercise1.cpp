@@ -3,7 +3,7 @@
 **@Author        Jacob Taylor Cassady
 **@Class         CECS302 - Data Structures
 **@Instructor    Dr. Ibrahim Imam
-**@Assignemnt    5
+**@Assignment    5
 **@Question      1
 **@Date Created  11/22/2016
 **@Last Updated  11/22/2016
@@ -32,7 +32,7 @@ size 130 and use this data to calculate λ.
 #include <algorithm>
 #include <string>
 #include <math.h>
-#include <ctime>   ///http://en.cppreference.com/w/cpp/numeric/random/rand
+#include <ctime> 
 
 
 using namespace std;
@@ -130,7 +130,7 @@ class HashTable
 
 			} // end for
 		}
-
+		
 	private:
 		vector<list<int> > theLists; // The array of Lists
 		unsigned currentSize;
@@ -157,11 +157,6 @@ int main()
 	int itemsCount = 17;
 	int myInts[itemsCount];
 	
-	// for(unsigned myInts_i=0; myInts_i<itemsCount; myInts_i++){
-	// 	myInts[myInts_i] = pow(myInts_i,2);
-	// }
-	
-
 	myInts[0] = 121;
 	myInts[1] = 81;
 	myInts[2] = 16;
@@ -183,7 +178,8 @@ int main()
 
 	oneTwo.printList();
 
-// 1.3. Run the same sequence using a table of size 7.
+
+/* 1.3. Run the same sequence using a table of size 7.*/
 	HashTable oneThree;
 
 	for (int i = 0; i < 7; ++i)
@@ -194,18 +190,27 @@ int main()
 
 	oneThree.printList();
 	
-// 	1.5. Rewrite main so that it will replace the sequence above with a random number generator to
-// generate randomly 100 integers between the value of 0 and 99 and insert these in a table of
-// size 130 and use this data to calculate λ. 
 	
+/* 	1.5. Rewrite main so that it will replace the sequence above with a random number generator to
+ generate randomly 100 integers between the value of 0 and 99 and insert these in a table of
+ size 130 and use this data to calculate λ.
+ 	
+ 	λ = (#OfElementsInHashTable)/(SizeOfHashTable)*/
+    srand(time(0));
+	int randomVariable = 0, elementsInHashTable = 100, sizeOfHashTable = 130;
+	HashTable oneFive(sizeOfHashTable);
+	float lamda = 0;
 	
-
-
-	// cout << "Does H contain 16 " << H.contains(16) << endl;
-	// cout << "Does H contain 36 " << H.contains(36) << endl;
-	// cout << "Does H contain 144 " << H.contains(144) << endl;
-	// cout << "Does H contain 121 " << H.contains(121) << endl;
-	// cout << "Does H contain 5 " << H.contains(5) << endl;
+	for(unsigned randomVaraible_i = 0; randomVaraible_i < elementsInHashTable; randomVaraible_i++){
+		randomVariable = rand()%100;
+		oneFive.insert(randomVariable);
+	}
+	
+	oneFive.printList();
+	
+	lamda = ((float)elementsInHashTable/(float)sizeOfHashTable);
+	
+	cout << "λ = " << lamda << endl;
 
 	return 0;
 }
