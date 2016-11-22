@@ -151,8 +151,8 @@ int main()
 {
 	HashTable oneTwo;
 	
-// 	1.2. Write your own main to insert the sequence of integers { 121, 81, 16, 100, 25, 0, 1, 9, 4, 36,
-// 64, 49,) using a table of size 17.
+/* 	1.2. Write your own main to insert the sequence of integers { 121, 81, 16, 100, 25, 0, 1, 9, 4, 36,
+   64, 49,) using a table of size 17.*/
 
 	int itemsCount = 17;
 	int myInts[itemsCount];
