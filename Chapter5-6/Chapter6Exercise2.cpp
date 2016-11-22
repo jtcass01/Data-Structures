@@ -22,6 +22,8 @@ draw the binary tree corresponding to the output.
 2.3. Are these the same, if not explain why. 
 */
 
+//////NEEED TO FIX PART B.  INSERT ITEMS FROM 1-15 LINEARLY.
+
 #include <iostream>
 #include <vector>
 using namespace std;
