@@ -15,7 +15,6 @@ a. Show the result of inserting 10, 12, 1, 14, 6, 5, 8, 15, 3, 9, 7, 4, 11, 13, 
 one at a time, into an initially empty binary heap.
 b. Show the result of using the linear-time algorithm to build a binary heap using
 the same input.
-
 2.1. In part a do it by hand and submit your hand drawn tree.
 2.2. In part b use the Priority Queue code given by me, After obtaining the output of the program,
 draw the binary tree corresponding to the output.
@@ -163,11 +162,12 @@ class BinaryHeap
 int main()
 {
 
-	BinaryHeap<int> h(15);
-	
-	
 /*	a. Show the result of inserting 10, 12, 1, 14, 6, 5, 8, 15, 3, 9, 7, 4, 11, 13, and 2,
 one at a time, into an initially empty binary heap.*/
+	cout << endl << endl << "----- Problem 2.2 -----" << endl;
+
+	BinaryHeap<int> h(15);
+	
 	h.insert(10);
 	h.printHeap();
 	h.insert(12);
@@ -200,51 +200,17 @@ one at a time, into an initially empty binary heap.*/
 	h.printHeap();
 
 
-	// h.insert(10);
-	// h.printHeap();
-	// h.insert(12);
-	// h.printHeap();
-	// h.insert(1);
-	// h.printHeap();
-	// h.insert(14);
-	// h.printHeap();
-	// h.printHeap();
-	// h.insert(6);
-	// h.printHeap();
-	// h.insert(5);
-	// h.printHeap();
-	// h.insert(8);
-	// h.printHeap();
-	// h.insert(15);
-	// h.printHeap();
-	// h.insert(3);
-	// h.printHeap();
-	// h.insert(9);
-	// h.printHeap();
-	// h.insert(7);
-	// h.printHeap();
-	// h.insert(4);
-	// h.printHeap();
-	// h.insert(11);
-	// h.printHeap();
-	// h.insert(13);
-	// h.printHeap();
-	// h.insert(2);
-	// h.printHeap();
-	// h.insert(-2);
+// 2.2. In part b use the Priority Queue code given by me, After obtaining the output of the program,
+// draw the binary tree corresponding to the output.
+	cout << endl << endl << "----- Problem 2.2 -----" << endl;
 
-	// h.printHeap();
-	// h.deleteMin();
-	// h.printHeap();
+	BinaryHeap<int> twoTwo(15);
 
-	// h.printHeap();
-	// h.deleteMin();
-	// h.printHeap();
 
-	// h.printHeap();
-	// h.deleteMin();
-	// h.printHeap();
-
+	for(unsigned int i = 1; i <=15; i++){
+		twoTwo.insert(i);
+		twoTwo.printHeap();
+	}
 
 	return 0;
 }
